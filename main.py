@@ -1,6 +1,6 @@
 from typing import Generator
-from align import  Diff
-from rareword import FilterBothRareWord
+from utils.align import  Diff
+from utils.rareword import FilterBothRareWord
 
 
 def get_substr_by_indexs(indexs, text):
