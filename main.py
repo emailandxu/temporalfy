@@ -19,6 +19,7 @@ if __name__ == "__main__":
 
     parser.add_argument('--hyp',  help='hypothesis file path')
     parser.add_argument('--ref',  help='reference file path')
+    parser.add_argument('--out',  help='output file path')
 
     args = parser.parse_args()
 
@@ -38,4 +39,4 @@ if __name__ == "__main__":
 
     from itertools import  chain
     squzzed_aligns = list(chain(*whole_aligns))
-    print(Diff.make_aligns_json(squzzed_aligns))
+    print(Diff.make_aligns_json(squzzed_aligns), file=open(args.out, "w"))
