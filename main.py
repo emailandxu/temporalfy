@@ -1,7 +1,7 @@
 from typing import Generator
 from utils.align import  Diff
 from utils.rareword import FilterBothRareWord
-
+import argparse
 
 def get_substr_by_indexs(indexs, text):
     """given indexs, it will output a sequence of substrs from left to right"""
@@ -14,8 +14,16 @@ def get_substr_by_indexs(indexs, text):
 
 
 if __name__ == "__main__":
-    hypo = open("./data/4-refOut.txt", "r").read().replace(" ", "")
-    label = open("./data/4-hypOut.txt", "r").read().replace(" ", "")
+
+    parser = argparse.ArgumentParser(description='Process some integers.')
+
+    parser.add_argument('--hyp',  help='hypothesis file path')
+    parser.add_argument('--ref',  help='reference file path')
+
+    args = parser.parse_args()
+
+    hypo = open(args.hyp, "r").read().replace(" ", "")
+    label = open(args.ref, "r").read().replace(" ", "")
 
     hypo_word_index_pairs, label_word_index_pairs = FilterBothRareWord(hypo, label)()
 

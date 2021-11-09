@@ -55,8 +55,8 @@ class Diff:
 
             "alignment": [ 
                 {
-                    "ref":alg[0],
-                    "hyp":alg[1]
+                    "ref":alg[1],
+                    "hyp":alg[0]
                 }
                 for alg in aligns
             ]
