@@ -3,6 +3,7 @@ from utils.align import  Diff
 from utils.rareword import FilterBothRareWord
 import argparse
 from utils.uniencode import UnicodeVocabMapping
+import re
 
 def get_substr_by_indexs(indexs, text):
     """given indexs, it will output a sequence of substrs from left to right"""
@@ -16,16 +17,29 @@ def get_substr_by_indexs(indexs, text):
 
 def args_parser():
     parser = argparse.ArgumentParser(description='Align Text')
-    parser.add_argument('--hyp',  default="./data/enhyp.txt", help='hypothesis file path')
-    parser.add_argument('--ref',  default="./data/enref.txt", help='reference file path')
-    parser.add_argument('--out',  default="./data/enoutput.txt", help='output file path')
+    parser.add_argument('--hyp',  default="data/4-2-hypOut.txt", help='hypothesis file path')
+    parser.add_argument('--ref',  default="data/4-2-refOut.txt", help='reference file path')
+    parser.add_argument('--out',  default="data/4-2-output.txt", help='output file path')
     return parser
 
 if __name__ == "__main__":
     args = args_parser().parse_args()
 
-    hypo_tokens = open(args.hyp, "r").read().split(" ")
-    label_tokens = open(args.ref, "r").read().split(" ")
+    hypo_text = ""
+    ref_text = ""
+
+    with open(args.hyp, "r") as hf:
+        hypo_text = hf.read()
+
+    with open(args.ref, "r") as rf:
+        ref_text = rf.read()
+
+    # trim duplicated spaces
+    hypo_text = re.sub(" +", " ", hypo_text)
+    ref_text = re.sub(" +", " ", ref_text)
+
+    hypo_tokens = hypo_text.split(" ")
+    label_tokens = ref_text.split(" ")
 
     uvmap = UnicodeVocabMapping(chain(hypo_tokens, label_tokens))
 
