@@ -34,9 +34,9 @@ if __name__ == "__main__":
     with open(args.ref, "r") as rf:
         ref_text = rf.read()
 
-    # trim duplicated spaces
-    hypo_text = re.sub(" +", " ", hypo_text)
-    ref_text = re.sub(" +", " ", ref_text)
+    # trim head、tail and duplicated spaces
+    hypo_text = re.sub(" +", " ", hypo_text.strip())
+    ref_text = re.sub(" +", " ", ref_text.strip())
 
     hypo_tokens = hypo_text.split(" ")
     label_tokens = ref_text.split(" ")
